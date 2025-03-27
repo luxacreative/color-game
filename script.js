@@ -1,7 +1,7 @@
 const colorDisplay = document.getElementById('color-display');
 const userInput = document.getElementById('user-input');
 const timeLeftDisplay = document.getElementById('time-left');
-const scoreDisplay = document.getElementById('score');
+const scoreDisplay = document.getElementById('score-value'); // Selecția corectă a scorului
 const submitBtn = document.getElementById('submit-btn');
 
 const colors = ['red', 'green', 'blue', 'yellow', 'orange', 'purple', 'pink'];
@@ -19,20 +19,25 @@ let selectedColor;
 let timeLeft = 30;
 let timerInterval;
 let score = 0;
+let gameStarted = false; // Verifică dacă jocul a început
 
-// Select a color at the beginning and change the background
+// Selectează o singură culoare la început
 function startGame() {
     selectedColor = colors[Math.floor(Math.random() * colors.length)];
-    colorDisplay.style.backgroundColor = selectedColor; // Set the background to the selected color
+    colorDisplay.style.backgroundColor = selectedColor; // Fundalul devine culoarea aleasă
+    colorDisplay.textContent = ""; // Elimină textul anterior
     startTimer();
 }
 
-// Start the countdown timer only after the color is selected
+// Timer care începe doar după ce se alege culoarea
 function startTimer() {
+    if (gameStarted) return; // Evită restartarea timpului
+    gameStarted = true;
+    
     timerInterval = setInterval(() => {
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            alert('Game over! Your score: ' + score);
+            alert(`Game over! Your final score: ${score}`);
         } else {
             timeLeft--;
             timeLeftDisplay.textContent = timeLeft;
@@ -40,30 +45,30 @@ function startTimer() {
     }, 1000);
 }
 
-// Validate the user's input
+// Validează răspunsul utilizatorului
 function validateAnswer() {
     const answer = userInput.value.trim().toLowerCase();
     if (validAnswers[selectedColor] && validAnswers[selectedColor].includes(answer)) {
-        score++; // Increase score if the answer is correct
-        scoreDisplay.textContent = `Score: ${score}`;
-        userInput.value = ''; // Clear the input after a correct answer
+        score++; // Crește scorul pentru răspuns corect
+        scoreDisplay.textContent = score; // Actualizează scorul în UI
+        userInput.value = ''; // Golește input-ul
     } else {
         alert('Wrong answer! Try again.');
     }
 }
 
-// Allow Enter to submit answer without clearing the input
+// Permite apăsarea "Enter" pentru a trimite răspunsul
 userInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        event.preventDefault();  // Prevent form submission or page reload
-        validateAnswer(); // Validate the answer
+        event.preventDefault();  // Evită comportamentul implicit
+        validateAnswer();
     }
 });
 
-// Add event listener for submit button
+// Butonul de Submit pentru răspuns
 submitBtn.addEventListener('click', () => {
     validateAnswer();
 });
 
-// Start the game when the page loads
+// Pornește jocul la încărcarea paginii
 startGame();
