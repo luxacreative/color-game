@@ -1,28 +1,20 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jocul Culorilor</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="menu">
-    <h1>Jocul Culorilor</h1>
-    <button id="start-btn">Începe Jocul</button>
-  </div>
-
-  <div id="game" style="display:none;">
-    <div id="color-info">
-      <h2 id="color-name">Roșu</h2>
-      <p>Scrie cât mai multe obiecte care au această culoare!</p>
+    <div id="game-container">
+        <h1>Color Game</h1>
+        <p>Try to type as many objects as you can with the selected color!</p>
+        <div id="color-display" style="background-color: #fff;"></div>
+        <input type="text" id="user-input" placeholder="Type objects with this color..." />
+        <p>Time left: <span id="time-left">30</span> seconds</p>
     </div>
-    <input type="text" id="input" placeholder="Scrie un obiect..." />
-    <button id="submit">Adaugă Răspuns</button>
-    <p id="timer">Timp rămas: 30 secunde</p>
-    <p>Puncte: <span id="score">0</span></p>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
