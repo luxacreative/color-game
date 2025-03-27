@@ -21,12 +21,13 @@ let score = 0;
 
 // Select a color at the beginning and change the background
 function startGame() {
+    // Select a color at random
     selectedColor = colors[Math.floor(Math.random() * colors.length)];
     colorDisplay.style.backgroundColor = selectedColor; // Set the background to the selected color
     startTimer();
 }
 
-// Start the countdown timer
+// Start the countdown timer only after the color is selected
 function startTimer() {
     timerInterval = setInterval(() => {
         if (timeLeft <= 0) {
